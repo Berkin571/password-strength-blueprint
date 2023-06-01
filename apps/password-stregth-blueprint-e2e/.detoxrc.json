@@ -1,0 +1,107 @@
+{
+  "testRunner": {
+    "args": {
+      "$0": "jest",
+      "config": "./jest.config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000
+    }
+  },
+  "apps": {
+    "ios.debug": {
+      "type": "ios.app",
+      "build": "cd ../../apps/password-stregth-blueprint/ios && xcodebuild -workspace PasswordStregthBlueprint.xcworkspace -scheme PasswordStregthBlueprint -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/password-stregth-blueprint/ios/build/Build/Products/Debug-iphonesimulator/PasswordStregthBlueprint.app"
+    },
+    "ios.release": {
+      "type": "ios.app",
+      "build": "cd ../../apps/password-stregth-blueprint/ios && xcodebuild -workspace PasswordStregthBlueprint.xcworkspace -scheme PasswordStregthBlueprint -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/password-stregth-blueprint/ios/build/Build/Products/Release-iphonesimulator/PasswordStregthBlueprint.app"
+    },
+
+    "ios.eas": {
+      "type": "ios.app",
+      "build": "npx nx run password-stregth-blueprint:download --platform ios --distribution simulator --output=../../apps/password-stregth-blueprint/dist/",
+      "binaryPath": "../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.app"
+    },
+    "ios.local": {
+      "type": "ios.app",
+      "build": "npx nx run password-stregth-blueprint:build --platform ios --profile preview --wait --local --no-interactive --output=../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.tar.gz",
+      "binaryPath": "../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.app"
+    },
+
+    "android.debug": {
+      "type": "android.apk",
+      "build": "cd ../../apps/password-stregth-blueprint/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+      "binaryPath": "../../apps/password-stregth-blueprint/android/app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "android.release": {
+      "type": "android.apk",
+      "build": "cd ../../apps/password-stregth-blueprint/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release",
+      "binaryPath": "../../apps/password-stregth-blueprint/android/app/build/outputs/apk/release/app-release.apk"
+    },
+
+    "android.eas": {
+      "type": "android.apk",
+      "build": "npx nx run password-stregth-blueprint:download --platform android --distribution simulator --output=../../apps/password-stregth-blueprint/dist/",
+      "binaryPath": "../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.apk"
+    },
+    "android.local": {
+      "type": "android.apk",
+      "build": "npx nx run password-stregth-blueprint:build --platform android --profile preview --wait --local --no-interactive --output=../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.apk",
+      "binaryPath": "../../apps/password-stregth-blueprint/dist/PasswordStregthBlueprint.apk"
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 14"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4a_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios.sim.release": {
+      "device": "simulator",
+      "app": "ios.release"
+    },
+    "ios.sim.debug": {
+      "device": "simulator",
+      "app": "ios.debug"
+    },
+
+    "ios.sim.eas": {
+      "device": "simulator",
+      "app": "ios.eas"
+    },
+    "ios.sim.local": {
+      "device": "simulator",
+      "app": "ios.local"
+    },
+
+    "android.emu.release": {
+      "device": "emulator",
+      "app": "android.release"
+    },
+    "android.emu.debug": {
+      "device": "emulator",
+      "app": "android.debug"
+    },
+
+    "android.emu.eas": {
+      "device": "emulator",
+      "app": "android.eas"
+    },
+    "android.emu.local": {
+      "device": "emulator",
+      "app": "android.local"
+    }
+  }
+}
